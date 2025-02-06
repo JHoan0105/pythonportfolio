@@ -108,11 +108,59 @@ pipenv install
 ```
 This will recreate the virtual environment and install all the necessary dependencies.
 
+## Command lines
+
+To access the pip env
+```bash
+pipenv shell
+```
+
+To access django shell
+```bash
+pipenv shell
+python manage.py shell
+```
+
+To build datastructure from django shell
+```bash
+# import the data
+from main.models import ToDoList
+m = dataModel.objects.all() # to get all
+m.get(id=1) # get dataModel with id = 1 function will throw exception if not found
+m.filter(id=1) # get datamodel with id=1
+# m.item_set.all() queryset from model ie.
+# m({'item': 'new', 'bool':False }) create new object - make sure variables/fields exists when creating models in models.py
+# m.save() save the new object
+dataModel.objects.get(id=1).item_set.create(text='javascript', complete=True) # create new item set
+# dataModel.objects.get(id=1).delete()  delete object
+```
+
+When updating the database make sure to makemigrations then migrate
+```bash
+python manage.py makemigrations name-ofapp
+python manage.py migrate
+python manage.py showmigrations # debugging
+```
+
+To create new app on pipenv shell
+```bash
+python manage.py startapp nameofapp
+# add new app to settings.py installed apps
+# add url to urls.py ie path('nameofapp', views.newapp, name='newapp')
+```
+
+To register data models onto the admin panel
+```bash
+# In admin.py register
+admin.site.register(ToDoList)
+```
+
 ---
 ## Additional Resources
 
 [Django Documentation](https://docs.djangoproject.com/en/5.1/)
 [Pipenv Documentation](https://pipenv.pypa.io/en/latest/dev/contributing.html#documentation-contributions)
+[Bootstrap Documentation](https://getbootstrap.com/docs/4.3/getting-started/introduction/)
 
 ### Key Sections:
 - **Prerequisites**: Lists software needed (Python, Pip, Pipenv).

@@ -4,9 +4,98 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <script>
+        // Function to update the margin-top of the main content based on header height
+        function adjustMainMargin() {
+            var headerHeight = document.querySelector('header').offsetHeight; // Get the height of the header
+            document.querySelector('.main').style.marginTop = headerHeight + 'px'; // Set the margin-top of main
+        }
+
+        // Call the function on page load
+        window.onload = adjustMainMargin;
+
+        // Call the function every time the window is resized
+        window.onresize = adjustMainMargin;
+    </script>
+    <style type="text/css">
+        /* Reset margins and paddings globally */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Ensures padding and border are included in element dimensions */
+        }
+
+        /* Ensure the body has no default margin or padding */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .sidenav{
+            height:100%;
+            width:160px;
+            position: fixed;
+            z-index: 1;
+            top:0;
+            left:0;
+            background-color: #2c76ff;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+        .sidenav a{
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #ffff;
+            display: block;
+        }
+        .sidenav a:hover{
+            color:#bebaba;
+        }
+        /* Style the header to be flush with the top */
+        header {
+            margin: 0;
+            padding: 0; /* Remove any padding */
+            position: fixed; /* Make it relative to control positioning */
+            top: 0; /* Align it to the top of the page */
+            width: 100%; /* Ensure header spans the full width */
+        }
+        .nav-menu{
+            list-style-type: none; /* Remove default list styling */
+            display: flex; /* Use flexbox to align items horizontally */
+            margin: 0; /* Reset any margin */
+            padding: 0; /* Remove padding */
+            justify-content: flex-start; /* Align items to the left (you can change this if needed */
+            margin-left: 170px;
+            padding: 0px 0px;
+            padding-top: 0px;
+            top: 0;
+        }
+        .nav-menu li {
+            margin: 0; /* Remove margin from list items */
+        }
+
+        .nav-menu a {
+            display: block; /* Makes the link clickable on the entire list item */
+            padding: 10px 20px; /* Add padding for clickable area */
+            color: white; /* Change link color */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        .main{
+            margin-left: 170px;
+            padding: 0px 10px;
+            /* margin-top: calc(400px); Dynamically adjust margin-top based on header height */
+        }
+        /* Main content inside form, make sure it scrolls without overlapping header */
+        form {
+            overflow-y: auto; /* Enable vertical scroll within the form */
+            max-height: calc(100vh - 150px); /* Ensure the form content doesn't overflow the screen */
+        }
+    </style>
     <title>{% block title %}Portfolio - Home{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     {% block extrahead %}
     {% endblock extrahead %}
 </head>
@@ -15,14 +104,37 @@
         <ul class="nav-menu">
             <li><a href="/home">Home</a></li>
             <li><a href="/contact">Contact</a></li>
+            <li><a href="/project">Project</a></li>
+            <li><a href="/todo">Todo</a></li>
+            <li><a href="/create">Create</a></li>
+            <li><a href="/createitem">Create Item</a></li>
+            <li><a href="/createitembootstrap">Create Item ++</a></li>
         </ul>
     </header>
+    <div class="sidenav">
+        <a href="/home">Home</a>
+        <a href="/contact">Contact</a>
+        <a href="/project">Project</a>
+        <a href="/todo">Todo</a>
+        <a href="/create">Create</a>
+        <a href="/createitem">Create Item</a>
+        <a href="/createitembootstrap">Create Item ++</a>
+    </div>
     <main>
-        {% block content %}
-        {% endblock content %}
+        <div id="content" name="content" class="main">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </div>
+        </div>
     </main>
 
     {% block extra_js %}
     {% endblock extra_js %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

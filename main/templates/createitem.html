@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Todo Page
+{% endblock %}
+{% block extrahead %}
+  <link rel="stylesheet" href="{% static 'css/todo.css' %}" />
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  {{form.as_p}}
+    {% if obj %}
+      <h1>{{obj.id}} : {{obj.name}}</h1>
+      <ul>
+        {% for item in obj.item_set.all %}
+          {% if item.complete %}
+          <li><input type="checkbox" value="clicked" name="c{{item.id}}" checked>{{item.id}} : {{item.text}}</li>
+          {% else %}
+          <li><input type="checkbox" value="clicked" name="c{{item.id}}">{{item.id}} : {{item.text}}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <button type="submit" name="save" value="save">Save</button>
+      <input type="text" name="new">
+      <button type="submit" name="newItem" value="newItem">Add Item</button>
+    {% else %}
+      {% for lst in ls %}
+        <h1>{{lst.name}}</h1>
+        <button type="submit" name="goto" value="{{lst.id}}">Update</button>
+        <button type="submit" name="delete" value="{{lst.id}}">Remove</button>
+        <ul>
+            {% for item in lst.item_set.all %}
+              {% if item.complete %}
+              <li>{{item.id}} : {{item.text}} - Completed</li>
+              {% else %}
+              <li>{{item.id}} : {{item.text}} - Incompleted</li>
+              {% endif %}
+            {% endfor %}
+        </ul>
+      {% endfor %}
+    {% endif %}
+
+</form>
+{% endblock %}

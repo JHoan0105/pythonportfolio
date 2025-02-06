@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Todo Page
+{% endblock %}
+{% block extrahead %}
+  <link rel="stylesheet" href="{% static 'css/todo.css' %}" />
+{% endblock %}
+
+{% block content %}
+  {% if ls %}
+    {% for lst in ls %}
+    <h1>{{lst.id}} : {{lst.name}}</h1>
+    <ul>
+        {% for item in lst.item_set.all %}
+          {% if item.complete %}
+          <li>{{item.id}} : {{item.text}} - Completed</li>
+          {% else %}
+          <li>{{item.id}} : {{item.text}} - Incompleted</li>
+          {% endif %}
+        {% endfor %}
+    </ul>
+    {% endfor %}
+  {% else %}
+    <h1>{{obj.id}} : {{obj.name}}</h1>
+    <ul>
+      {% for item in obj.item_set.all %}
+        {% if item.complete %}
+        <li>{{item.id}} : {{item.text}} - Completed</li>
+        {% else %}
+        <li>{{item.id}} : {{item.text}} - Incompleted</li>
+        {% endif %}
+      {% endfor %}
+  </ul>
+  {% endif %}
+{% endblock %}

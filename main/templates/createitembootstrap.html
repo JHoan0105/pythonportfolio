@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Todo Page
+{% endblock %}
+{% block extrahead %}
+  <link rel="stylesheet" href="{% static 'css/todo.css' %}" />
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  {{form.as_p}}
+    {% if obj %}
+        <h1>{{obj.id}} : {{obj.name}}</h1>
+          {% for item in obj.item_set.all %}
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                {% if item.complete %}
+                <input type="checkbox" value="clicked" name="c{{item.id}}" checked>
+                {% else %}
+                <input type="checkbox" value="clicked" name="c{{item.id}}">
+                {% endif %}
+                <input diabled type="text" value="{{item.id}} : {{item.text}}" class="form-control">
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        <button class="btn btn-success"  type="submit" name="save" value="save">Save</button>
+        <input type="text" name="new">
+        <button class="btn btn-success"  type="submit" name="newItem" value="newItem">Add Item</button>
+    {% else %}
+      {% for lst in ls %}
+        <h1>{{lst.name}}</h1>
+          <button class="btn btn-success" type="submit" name="goto" value="{{lst.id}}">Update</button>
+          <button class="btn btn-success" type="submit" name="delete" value="{{lst.id}}">Remove</button>
+          {% for item in lst.item_set.all %}
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input diabled type="text" value="{{item.id}} : {{item.text}}" class="form-control">
+                {% if item.complete %}
+                   - Completed
+                {% else %}
+                   - Incompleted
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</form>
+{% endblock %}

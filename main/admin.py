@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tag, Project, ProjectImage
+from .models import Tag, Project, ProjectImage, ToDoList, Item
 
 
 class ProjectImageInline(admin.TabularInline):
@@ -19,6 +19,8 @@ class TagAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
+admin.site.register(Item)
+admin.site.register(ToDoList)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(ProjectImage)

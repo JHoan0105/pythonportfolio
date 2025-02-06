@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Create Page
+{% endblock %}
+{% block extrahead %}
+  <link rel="stylesheet" href="{% static 'css/create.css' %}" />
+{% endblock %}
+
+{% block content %}
+<h1>Create</h1>
+Default
+<form method="post" action="/create/"> 
+  {% csrf_token %}
+  {{form}}
+  <button type="submit" name="save">Create New</button>
+</form>
+<br/>
+Table
+<form method="post" action="/create/"> 
+  {% csrf_token %}
+  {{form.as_table}}
+  <button type="submit" name="save">Create New</button>
+</form>
+<br/>
+single column
+<form method="post" action="/create/"> 
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit" name="save">Create New</button>
+</form>
+<br/>
+List
+<form method="post" action="/create/"> 
+  {% csrf_token %}
+  {{form.as_ul}}
+  <button type="submit" name="save">Create New</button>
+</form>
+{% endblock %}
