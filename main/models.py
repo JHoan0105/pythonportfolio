@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class ToDoList(models.Model):
+    usr = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todolist', null=True)
     name = models.CharField(max_length=200)
 
     def __str__(self):
@@ -8,7 +10,7 @@ class ToDoList(models.Model):
 
 
 class Item(models.Model):
-    todolist = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
+    todolist = models.ForeignKey(ToDoList, default=1,on_delete=models.CASCADE)
     text = models.CharField(max_length=300)
     complete = models.BooleanField()
 

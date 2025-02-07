@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  View
+{% endblock %}
+{% block extrahead %}
+  <link rel="stylesheet" href="{% static 'css/todo.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <h1>Hello {{user}} {{email}}!</h1>
+  {% for td in ls %}
+    <p><a href="/createitem/{{td.id}}">{{td.name}}</p></a>
+    {% for item in td.item_set.all %}
+    <ul style="padding-left: 80px;">
+      {{item.text}} - 
+      {% if item.complete %} completed {% else %} incomplete {% endif %}
+    </ul>
+    {% endfor %}
+  {% endfor %}
+{% endblock %}

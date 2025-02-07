@@ -5,6 +5,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("home/", views.home, name="home"),
     path("contact/", views.contact, name="contact"),
+    path("view/", views.view, name="view"),
     path("todo/", views.todo, name="todo"),
     path("todo/<int:id>/", views.todo, name="todo"),
     path("create/", views.create, name="create"),

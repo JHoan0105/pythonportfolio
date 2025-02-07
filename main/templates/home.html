@@ -2,13 +2,14 @@
 {% load static %}
 
 {% block title %}
-  Home Page
+  Home Page {{ user }}
 {% endblock %}
 {% block extrahead %}
   <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %}
 
 {% block content %}
+<h1>{{ user }}</h1>
   <div class="filters">
     <input type="text" id="name-search" placeholder="Search by name..." />
     <div class="tags-list">

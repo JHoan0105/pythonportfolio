@@ -5,9 +5,10 @@ from .forms import CreateNewList
 
 
 def home(request):
+    user = request.user
     projects = Project.objects.all()
     tags = Tag.objects.all()
-    return render(request, "home.html", {"projects": projects, "tags": tags})
+    return render(request, "home.html", {"projects": projects, "tags": tags, "user":user})
 
 
 def contact(request):
@@ -105,12 +106,20 @@ def create(request):
             n = form.cleaned_data["name"]
             t = ToDoList(name=n)
             t.save()
+            request.user.todolist.add(t)
 
         return HttpResponseRedirect("/todo/%i" %t.id)
 
     else:
         form = CreateNewList()
     return render(request, "create.html", {"form": form})
+
+
+def view(request):
+    user = request.user
+    ls = request.user.todolist.all()
+    print(ls)
+    return render(request, 'view.html', {'user': user, 'ls': ls})
 
 
 def project(request, id):

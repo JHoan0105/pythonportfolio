@@ -7,10 +7,17 @@
 </div>
 {% endblock %}
 {% block content %}
+{% load crispy_forms_filters %}
 <form method="POST" class="form-group">
-    <div>
-        {{form}}
-    </div>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <!-- <br/>
+    <br/>
+    <br/>
+    {{ form.username }}
+    {{ form.email }}
+    {{ form.password1 }}
+    {{ form.password2 }} -->
     <button type="submit" class="btn btn-success">Register</button>
 </form>
 {% endblock %}

@@ -108,6 +108,42 @@ pipenv install
 ```
 This will recreate the virtual environment and install all the necessary dependencies.
 
+## 10. Dependencies
+
+Framework used:
+
+crispy forms for automatic styling
+```bash
+pip install django-crispy-forms
+```
+to use crispy forms add it to settings.py file and define the css that will be used.
+
+Template packs are are in separate packages
+```bash
+pip install crispy-bootstrap4
+```
+
+```bash
+# settings.py
+INSTALLED_APPS = [
+    ...,
+    "crispy_forms",
+    "crispy_bootstrap4",
+]
+...
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK="bootstrap4"
+```
+load crispy onto the html file
+```
+# *.html at the top
+{% load crispy_forms_tags %}
+
+# inside forms tags add crispy filters where <form> is the customizable
+{{ form|crispy }}
+```
+
 ## Command lines
 
 To access the pip env
@@ -155,12 +191,35 @@ To register data models onto the admin panel
 admin.site.register(ToDoList)
 ```
 
+Debugging
+```bash
+# virtual env
+pipenv --venv
+
+# Clear the cache (optional, if using caching)
+python manage.py clear_cache
+
+# Manually clear cache in django shell
+from django.core.cache import cache
+cache.clear()
+```
+
+# Collect static files again if necessary
+python manage.py collectstatic
+
+# Restart the server
+python manage.py runserver
+```
+
+
 ---
 ## Additional Resources
 
 [Django Documentation](https://docs.djangoproject.com/en/5.1/)
 [Pipenv Documentation](https://pipenv.pypa.io/en/latest/dev/contributing.html#documentation-contributions)
 [Bootstrap Documentation](https://getbootstrap.com/docs/4.3/getting-started/introduction/)
+[Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/)
+[Django Crispy Forms Git](https://github.com/django-crispy-forms/django-crispy-forms/)
 
 ### Key Sections:
 - **Prerequisites**: Lists software needed (Python, Pip, Pipenv).
@@ -173,4 +232,5 @@ admin.site.register(ToDoList)
 - **Running the Server**: Start the development server and access the app/admin interface.
 - **Deactivating the Environment**: How to exit the virtual environment.
 - **Installing Dependencies**: How to install all project dependencies from the `Pipfile`.
+- **Installing Dependencies**: How to install django forms framework crispy forms
 
